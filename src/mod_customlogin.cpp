@@ -117,7 +117,7 @@ public:
 
                 case CLASS_HUNTER:
                     shoulders = 42950;      //勇士的赫洛德护肩
-                    chest = 48677;          //
+                    chest = 48677;          //勇士的死亡执行者胸甲
                     trinket = 42991;        //迅捷的正义之手
                     weapon = 42943;         //染血的奥金斧
                     weapon2 = 42946;        //精致的上古骨弓
@@ -154,7 +154,7 @@ public:
                     trinket = 42992;        //敏锐的比斯巨兽之眼
                     weapon = 42948;         //虔诚的光环石锤
                     shoulders2 = 42950;     //勇士的赫洛德护肩
-                    chest2 = 48683;         
+                    chest2 = 48677;         //勇士的死亡执行者胸甲
                     weapon2 = 42947;        //高贵的院长法杖
                     break;
 
@@ -194,12 +194,12 @@ public:
                 case CLASS_DEATH_KNIGHT:
                     player->AddItem(trinket, 2);
                     player->AddItem(ring, 1);
-                    player->AddItem(shoulders, 1);
-                    player->AddItem(chest, 1);
-                    player->AddItem(weapon, 1);
-                    player->AddItem(weapon2, 1);
-                    player->AddItem(weapon3, 1);
-                    player->AddItem(bag, 4);
+                    //player->AddItem(shoulders, 1);
+                    //player->AddItem(chest, 1);
+                    //player->AddItem(weapon, 1);
+                    //player->AddItem(weapon2, 1);
+                    //player->AddItem(weapon3, 1);
+                    //player->AddItem(bag, 4);
                     break;
 
                 case CLASS_PALADIN:
@@ -246,14 +246,14 @@ public:
 
                 case CLASS_DRUID:
                     player->AddItem(trinket, 2);
-                    player->AddItem(trinket2, 2);
+                    //player->AddItem(trinket2, 2);
                     player->AddItem(ring, 1);
                     player->AddItem(shoulders, 1);
                     player->AddItem(chest, 1);
                     player->AddItem(weapon, 1);
-                    player->AddItem(shoulders2, 1);
-                    player->AddItem(chest2, 1);
-                    player->AddItem(weapon2, 1);
+                    //player->AddItem(shoulders2, 1);
+                    //player->AddItem(chest2, 1);
+                    //player->AddItem(weapon2, 1);
                     player->AddItem(bag, 4);
                     break;
 
@@ -349,6 +349,8 @@ public:
                     player->learnSpell(200);	// PoleArms
                     player->learnSpell(227);	// Staves
                     player->learnSpell(202);	// 2H Sword
+                    //添加猎人学习弓的技能
+                    player->learnSpell(264);	// Bows
                     break;
 
                 case CLASS_ROGUE:
@@ -398,15 +400,28 @@ public:
             }
 
             // If enabled.. learn special skills abilities
-            if (sConfigMgr->GetBoolDefault("CustomLogin.SpecialAbility", true))
+            if (sConfigMgr->GetBoolDefault("CustomLogin.SpecialAbility", false))
             {
                 // Learn Specialized Skills
-                player->learnSpell(1784);	// Stealth
-                player->learnSpell(921);	// Pick Pocket
-                player->learnSpell(1804);	// Lockpicking
-                player->learnSpell(11305);	// Sprint (3)
-                player->learnSpell(5384);	// Feign Death
-                // player->learnSpell(475);	// Remove Curse
+                switch (player->getClass())
+                {
+                case CLASS_WARRIOR:
+                    break;
+
+                case CLASS_HUNTER:
+                    player->learnSpell(5384);	// Feign Death
+                    break;
+
+                case CLASS_ROGUE:
+                    player->learnSpell(11305);	// Sprint (3)
+                    player->learnSpell(1784);	// Stealth
+                    player->learnSpell(1804);	// Lockpicking
+                    player->learnSpell(921);	// Pick Pocket
+                    player->learnSpell(475);	// Remove Curse
+                    break;
+                default:
+                    break;
+                }
 
                 // Add a few teleportation runes
                 player->AddItem(17031, 5);	// Rune of Teleportation
@@ -446,7 +461,7 @@ public:
             }
 
             // If enabled.. set exalted factions (AzerothCore config for rep not working as of 2017-08-25)
-            if (sConfigMgr->GetBoolDefault("CustomLogin.Reputation", true))
+            if (sConfigMgr->GetBoolDefault("CustomLogin.Reputation", false))
             {
                 switch (player->GetTeamId())
                 {
