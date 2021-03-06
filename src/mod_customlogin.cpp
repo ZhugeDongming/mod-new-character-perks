@@ -279,6 +279,40 @@ public:
                     break;
                 }
 
+                switch (player->getRace())
+                {
+                case RACE_HUMAN:
+                    player->AddItem((uint32)18778, 1);       //迅捷白马
+                    break;
+
+                case RACE_ORC:
+                    player->AddItem((uint32)18797, 1);       //迅捷森林狼号角
+                    break;
+
+                case RACE_DWARF:
+                    player->AddItem((uint32)18785, 1);       //迅捷白山羊
+                    break;
+                case RACE_NIGHTELF:
+                    player->AddItem((uint32)18766, 1);       //迅捷霜刃豹缰绳
+                    break;
+                case RACE_UNDEAD_PLAYER:
+                    player->AddItem((uint32)18791, 1);       //紫色骷髅战马
+                    break;
+                case RACE_TAUREN:
+                    player->AddItem((uint32)18795, 1);        //大型灰色科多兽
+                    break;
+                case RACE_GNOME:
+                    player->AddItem((uint32)18772, 1);        //迅捷绿色机械陆行鸟
+                    break;
+                case RACE_TROLL:
+                    player->AddItem((uint32)18789, 1);        //迅捷绿色迅猛龙
+                    break;
+                case RACE_DRAENEI:
+                    player->AddItem((uint32)29745, 1);        //重型蓝色雷象
+                    break;
+                default:
+                    break;
+                }
                 // Inform the player they have new items
                 std::ostringstream ss;
                 ss << "|cffFF0000[CustomLogin]:|cffFF8000 The outfitter has placed Heirloom gear in your backpack.";
@@ -392,6 +426,7 @@ public:
                 default:
                     break;
                 }
+                player->learnSpell(34091);  //学习骑术
 
                 // Inform the player they have new skills
                 std::ostringstream ss;
